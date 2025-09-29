@@ -476,7 +476,7 @@
                 if (!q || !recipe) return;
                 chatMsg(q, 'user'); inp.value = ''; loader.classList.remove('hidden');
                 const prompt = `Recipe: ${recipe.recipeName}\nIngredients: ${recipe.ingredients.join(', ')}\nInstructions: ${recipe.instructions.join(' ')}\n\nQuestion: "${q}"\nAnswer concisely:`;
-                const apiKey1 = "AIzaSyBUYi7Ll3Nupp0vN2xwhTz4UM6h1Wn9JUM";
+                const apiKey1 = "AIzaSyB1SyR4p_4tmtd5_jpXLK4noj1tQCGZQvY";
                 try {
                     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey1}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
                     if (!res.ok) throw new Error("API error");
@@ -499,7 +499,7 @@
             const generate = async () => {
                 reset(); els.loader.classList.remove('hidden'); els.genBtn.disabled = true;
                 const prompt = `Generate a recipe using: ${ings.join(', ')}. Language: ${els.lang.value}.`;
-                const apiKey1 = "AIzaSyBUYi7Ll3Nupp0vN2xwhTz4UM6h1Wn9JUM";
+                const apiKey1 = "AIzaSyB1SyR4p_4tmtd5_jpXLK4noj1tQCGZQvY";
                 try {
                     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey1}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", responseSchema: { type: "OBJECT", properties: { recipeName: { type: "STRING" }, description: { type: "STRING" }, ingredients: { type: "ARRAY", items: { type: "STRING" } }, instructions: { type: "ARRAY", items: { type: "STRING" } } }, required: ["recipeName", "description", "ingredients", "instructions"] } } }) });
                     if (!res.ok) throw new Error("API error");
