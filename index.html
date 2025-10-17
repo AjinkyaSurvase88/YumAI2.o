@@ -38,12 +38,9 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-20px);
             }
@@ -56,13 +53,10 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
                 transform: scale(1);
             }
-
             50% {
                 opacity: 0.8;
                 transform: scale(1.05);
@@ -74,7 +68,6 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -85,23 +78,37 @@
             0% {
                 background-position: -1000px 0;
             }
-
             100% {
                 background-position: 1000px 0;
             }
         }
 
-        @keyframes cookingBubbles {
-
-            0%,
-            100% {
-                transform: translateY(0) scale(1);
+        @keyframes steam {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0;
+            }
+            30% {
                 opacity: 1;
             }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-60px) translateX(var(--drift)) scale(1.5);
+                opacity: 0;
+            }
+        }
 
-            50% {
-                transform: translateY(-15px) scale(1.2);
-                opacity: 0.7;
+        @keyframes potShake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-1px);
+            }
+            75% {
+                transform: translateX(1px);
             }
         }
 
@@ -137,57 +144,86 @@
 
         .cooking-loader {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto;
         }
 
         .cooking-pot {
-            width: 60px;
-            height: 40px;
+            width: 80px;
+            height: 50px;
             background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-            border-radius: 0 0 30px 30px;
+            border-radius: 0 0 40px 40px;
             position: absolute;
-            bottom: 0;
-            left: 10px;
+            bottom: 10px;
+            left: 20px;
+            animation: potShake 0.5s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
         .cooking-pot::before {
             content: '';
             position: absolute;
-            top: -8px;
-            left: -5px;
-            right: -5px;
-            height: 12px;
+            top: -10px;
+            left: -8px;
+            right: -8px;
+            height: 15px;
             background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-            border-radius: 20px 20px 0 0;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -2px 10px rgba(236, 72, 153, 0.3);
         }
 
-        .bubble {
+        .cooking-pot::after {
+            content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            animation: cookingBubbles 2s ease-in-out infinite;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 8px;
+            background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+            border-radius: 20px;
         }
 
-        .bubble:nth-child(1) {
-            left: 15px;
-            bottom: 45px;
+        .steam {
+            position: absolute;
+            bottom: 60px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(236, 72, 153, 0.4) 50%, transparent 70%);
+            border-radius: 50%;
+            animation: steam 2.5s ease-out infinite;
+            filter: blur(4px);
+        }
+
+        .steam:nth-child(1) {
+            left: 30px;
+            --drift: -10px;
             animation-delay: 0s;
         }
 
-        .bubble:nth-child(2) {
-            left: 35px;
-            bottom: 45px;
-            animation-delay: 0.4s;
+        .steam:nth-child(2) {
+            left: 50px;
+            --drift: 5px;
+            animation-delay: 0.5s;
         }
 
-        .bubble:nth-child(3) {
-            left: 55px;
-            bottom: 45px;
-            animation-delay: 0.8s;
+        .steam:nth-child(3) {
+            left: 70px;
+            --drift: -5px;
+            animation-delay: 1s;
+        }
+
+        .steam:nth-child(4) {
+            left: 40px;
+            --drift: 8px;
+            animation-delay: 1.5s;
+        }
+
+        .steam:nth-child(5) {
+            left: 60px;
+            --drift: -8px;
+            animation-delay: 2s;
         }
 
         .shimmer-effect {
@@ -247,13 +283,18 @@
 
         @media (max-width: 768px) {
             .cooking-loader {
-                width: 60px;
-                height: 60px;
+                width: 100px;
+                height: 100px;
             }
 
             .cooking-pot {
-                width: 45px;
-                height: 30px;
+                width: 65px;
+                height: 40px;
+            }
+            
+            .steam {
+                width: 16px;
+                height: 16px;
             }
         }
     </style>
@@ -276,6 +317,8 @@
             <nav class="hidden md:flex space-x-8">
                 <a href="#generator"
                     class="nav-link text-gray-700 hover:text-pink-500 font-medium transition-colors">Generator</a>
+                <a href="#how-it-works"
+                    class="nav-link text-gray-700 hover:text-pink-500 font-medium transition-colors">Tutorial</a>
                 <a href="#features"
                     class="nav-link text-gray-700 hover:text-pink-500 font-medium transition-colors">Features</a>
                 <a href="#connect"
@@ -318,7 +361,7 @@
                     <p class="text-gray-500 text-center mb-10 text-lg">Add ingredients and let AI do the rest</p>
 
                     <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                        <input type="text" id="ingredient-input" placeholder="e.g., chicken, tomatoes, garlic"
+                        <input type="text" id="ingredient-input" placeholder="e.g., rice, tomatoes, garlic"
                             class="flex-grow px-6 py-4 text-lg border-2 border-purple-200 rounded-2xl focus:ring-4 focus:ring-pink-200 focus:border-pink-500 transition-all outline-none bg-white/80">
                         <button id="add-ingredient-btn"
                             class="gradient-bg text-white font-bold px-8 py-4 rounded-2xl hover:shadow-xl transition-all transform hover:scale-105">Add</button>
@@ -331,8 +374,8 @@
                             Language</label>
                         <select id="language-select"
                             class="w-full max-w-md mx-auto block px-5 py-4 text-lg bg-white/90 border-2 border-purple-200 rounded-2xl focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none">
-                            <option value="English">English</option>
                             <option value="Marathi">Marathi (मराठी)</option>
+                            <option value="English">English</option>
                             <option value="Hindi">Hindi (हिन्दी)</option>
                             <option value="Bengali">Bengali (বাংলা)</option>
                             <option value="Telugu">Telugu (తెలుగు)</option>
@@ -356,14 +399,17 @@
             <div class="container mx-auto px-6">
                 <div id="output-container" class="max-w-4xl mx-auto">
                     <div id="loader" class="text-center hidden">
-                        <div class="cooking-loader mb-6">
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
-                            <div class="bubble"></div>
+                        <div class="cooking-loader mb-8">
+                            <div class="steam"></div>
+                            <div class="steam"></div>
+                            <div class="steam"></div>
+                            <div class="steam"></div>
+                            <div class="steam"></div>
                             <div class="cooking-pot"></div>
                         </div>
-                        <p class="text-xl text-gray-700 font-bold gradient-text pulse-animation">Cooking up something
+                        <p class="text-2xl text-gray-700 font-black gradient-text pulse-animation">Cooking up something
                             delicious...</p>
+                        <p class="text-lg text-gray-500 mt-2">Please wait while AI creates your perfect recipe</p>
                     </div>
                     <div id="error-message"
                         class="text-center hidden bg-red-50 border-2 border-red-300 text-red-700 p-8 rounded-3xl shadow-lg">
@@ -372,6 +418,47 @@
                     </div>
                     <div id="recipe-result"
                         class="hidden glass p-10 md:p-14 rounded-3xl shadow-2xl border border-white/30"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">How It Works</h2>
+                   <p class="text-xl text-gray-600" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: pulse 2s ease-in-out infinite; font-weight: 700; text-shadow: 0 0 20px rgba(236, 72, 153, 0.3);">Celebrate Diwali with AI-crafted Delights!</p>
+                </div>
+                <div class="max-w-4xl mx-auto glass p-6 md:p-10 rounded-3xl shadow-2xl border border-white/30">
+                    <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-2xl shadow-lg">
+                        <iframe class="absolute top-0 left-0 w-full h-full"
+                            src="https://www.youtube.com/embed/U4W4BPp1bbQ?si=oAfDjODSNjnjjvwA" title="Yum AI Tutorial" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="mt-8 grid md:grid-cols-3 gap-6 text-center">
+                        <div class="p-4">
+                            <div
+                                class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                                1</div>
+                            <h4 class="font-bold text-lg mb-2">Add Ingredients</h4>
+                            <p class="text-gray-600">Type what you have in your kitchen</p>
+                        </div>
+                        <div class="p-4">
+                            <div
+                                class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                                2</div>
+                            <h4 class="font-bold text-lg mb-2">Choose Language</h4>
+                            <p class="text-gray-600">Select your preferred language</p>
+                        </div>
+                        <div class="p-4">
+                            <div
+                                class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                                3</div>
+                            <h4 class="font-bold text-lg mb-2">Generate & Cook</h4>
+                            <p class="text-gray-600">Get your personalized recipe instantly</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
